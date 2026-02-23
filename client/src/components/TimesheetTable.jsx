@@ -1,11 +1,22 @@
-function TimesheetTable({ entries, onDelete, onEdit }) {
+function TimesheetTable({ entries, onDelete, onEdit, onSort, sortColumn, sortDirection }) {
+    const arrow = (column) => {
+        if (sortColumn !== column) return '↕'
+        return sortDirection === 'asc' ? '↑' : '↓'
+    }
+
     return (
         <table>
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Hours</th>
-                    <th>Task</th>
+                    <th onClick={() => onSort('date')} style={{ cursor: 'pointer' }}>
+                        Date {arrow('date')}
+                    </th>
+                    <th onClick={() => onSort('hours')} style={{ cursor: 'pointer' }}>
+                        Hours {arrow('hours')}
+                    </th>
+                    <th onClick={() => onSort('task')} style={{ cursor: 'pointer' }}>
+                        Task {arrow('task')}
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>
