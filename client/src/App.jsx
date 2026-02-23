@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import TimesheetTable from './components/TimesheetTable'
 import TimesheetForm from './components/TimesheetForm'
+import FilterBar from './components/FilterBar'
 
 function App() {
   const [timesheets, setTimesheets] = useState([])
   const [editingEntry, setEditingEntry] = useState(null)
+  const [filterText, setFilterText] = useState('')
+  const [filterDate, setFilterDate] = useState('')
 
   const fetchTimesheets = async () => {
     try {
@@ -29,6 +32,12 @@ function App() {
     setEditingEntry(entry)
   }
 
+  const filteredTimesheets = timesheets.filter((entry) => {
+    const matchesText = entry.task.toLowerCase().includes(filterText.toLowerCase())
+    const matchesDate = filterDate ? entry.date === filterDate : true
+    return matchesText && matchesDate
+  })
+
   useEffect(() => {
     fetchTimesheets()
   }, [])
@@ -37,7 +46,8 @@ function App() {
     <div>
       <h1>Timsheet Manager</h1>
       <TimesheetForm onEntryAdded={fetchTimesheets} editingEntry={editingEntry} setEditingEntry={setEditingEntry} />
-      <TimesheetTable entries={timesheets} onDelete={handleDelete} onEdit={handleEdit}/>
+      <FilterBar filterText={filterText} setFilterText={setFilterText} filterDate={filterDate} setFilterDate={setFilterDate} />
+      <TimesheetTable entries={filteredTimesheets} onDelete={handleDelete} onEdit={handleEdit}/>
     </div>
   )
 }
