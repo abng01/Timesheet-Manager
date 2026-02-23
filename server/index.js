@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
 
-const timesheetsRouter = require('./routes/timehseets')
+const timesheetsRouter = require('./routes/timesheets')
 
 const app = express()
 
