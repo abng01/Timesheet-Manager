@@ -1,4 +1,4 @@
-function TimesheetTable({ entries }) {
+function TimesheetTable({ entries, onDelete, onEdit }) {
     return (
         <table>
             <thead>
@@ -6,6 +6,7 @@ function TimesheetTable({ entries }) {
                     <th>Date</th>
                     <th>Hours</th>
                     <th>Task</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +15,10 @@ function TimesheetTable({ entries }) {
                         <td>{entry.date}</td>
                         <td>{entry.hours}</td>
                         <td>{entry.task}</td>
+                        <td>
+                            <button onClick={() => onEdit(entry)}>Edit</button>
+                            <button onClick={() => onDelete(entry.id)}>Delete</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>

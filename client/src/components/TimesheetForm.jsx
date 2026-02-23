@@ -18,6 +18,7 @@ function TimesheetForm({ onEntryAdded }) {
             setDate('')
             setHours('')
             setTask('')
+            onEntryAdded()
         } catch (err) {
             console.log('Error:', err.message)
         }
